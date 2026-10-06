@@ -18,18 +18,20 @@ class HashMap {
 
   set(key, value) {
     let hash = this.hash(key);
+    let node = {
+      key,
+      value,
+      next: null,
+    };
     if (!this.#buckets[hash]) {
-      // if bucket empty add node to bucket
-      this.#buckets[hash] = { value: value, next: null };
+      this.#buckets[hash] = node;
     } else {
-      // if bucket not empty link previous node to new node
-      let previousNode = this.#buckets[hash];
-      this.#buckets[hash] = {
-        value: value,
-        next: previousNode,
-      };
+      node.next = this.#buckets[hash];
+      this.#buckets[hash] = node;
     }
   }
+
+  get(key) {}
 
   buckets() {
     return this.#buckets;
@@ -37,7 +39,3 @@ class HashMap {
 }
 
 let test = new HashMap();
-console.log(test.set("Nigga", "Cocksun"));
-console.log(test.set("ass", "Cocksun"));
-
-console.log(test.buckets());
