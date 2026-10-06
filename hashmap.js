@@ -44,6 +44,10 @@ class HashMap {
     return undefined;
   }
 
+  has(key) {
+    return this.get(key) ? true : false;
+  }
+
   buckets() {
     return this.#buckets;
   }
