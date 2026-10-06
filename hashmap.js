@@ -31,7 +31,18 @@ class HashMap {
     }
   }
 
-  get(key) {}
+  get(key) {
+    let hash = this.hash(key);
+    let parentNode = this.#buckets[hash];
+    if (!parentNode) return undefined;
+    do {
+      if (parentNode.key === key) {
+        return parentNode.value;
+      }
+      parentNode = parentNode.next;
+    } while (parentNode);
+    return undefined;
+  }
 
   buckets() {
     return this.#buckets;
