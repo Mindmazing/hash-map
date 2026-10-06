@@ -16,8 +16,28 @@ class HashMap {
     return hashcode;
   }
 
-  set(key, value) {}
+  set(key, value) {
+    let hash = this.hash(key);
+    if (!this.#buckets[hash]) {
+      // if bucket empty add node to bucket
+      this.#buckets[hash] = { value: value, next: null };
+    } else {
+      // if bucket not empty link previous node to new node
+      let previousNode = this.#buckets[hash];
+      this.#buckets[hash] = {
+        value: value,
+        next: previousNode,
+      };
+    }
+  }
+
+  buckets() {
+    return this.#buckets;
+  }
 }
 
 let test = new HashMap();
-console.log(test.hash("fwefws"));
+console.log(test.set("Nigga", "Cocksun"));
+console.log(test.set("ass", "Cocksun"));
+
+console.log(test.buckets());
