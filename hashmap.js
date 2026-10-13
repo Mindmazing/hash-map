@@ -58,15 +58,28 @@ class HashMap {
     do {
       // if key found, point parent node next to childs next node
       if (parentNode.next.key === key) {
-        console.log("key found");
-        console.log(parentNode.next);
-        console.log(parentNode.next.next);
         parentNode.next = parentNode.next.next;
-        console.log(parentNode);
         return;
       }
       parentNode = parentNode.next;
     } while (parentNode);
+  }
+
+  length() {
+    let total, node;
+    return this.#buckets.reduce((acc, curr) => {
+      if (!curr) {
+        return acc;
+      }
+      // loop inside current
+      node = curr.next;
+      total = 0;
+      while (node) {
+        total++;
+        node = node.next;
+      }
+      return acc + total;
+    }, 0);
   }
 
   buckets() {
@@ -75,3 +88,9 @@ class HashMap {
 }
 
 let test = new HashMap();
+test.set("Nigger", "ass");
+
+test.set("Cock Sucker Moderfoqer", "suc");
+test.remove("Nigger");
+test.remove("Cock Sucker Moderfoqer");
+console.log(test.length());
