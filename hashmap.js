@@ -20,32 +20,53 @@ class HashMap {
     let hash = this.hash(key);
     let node = {
       key,
-      value,
+      data: value,
       next: null,
     };
     if (!this.#buckets[hash]) {
-      this.#buckets[hash] = node;
+      this.#buckets[hash] = { data: "HEAD", next: node };
     } else {
-      node.next = this.#buckets[hash];
-      this.#buckets[hash] = node;
+      node.next = this.#buckets[hash].next;
+      this.#buckets[hash].next = node;
     }
   }
 
   get(key) {
     let hash = this.hash(key);
-    let parentNode = this.#buckets[hash];
-    if (!parentNode) return undefined;
+    let node = this.#buckets[hash];
+    if (!node) return undefined;
+
     do {
-      if (parentNode.key === key) {
-        return parentNode.value;
+      if (node.key === key) {
+        return node.data;
       }
-      parentNode = parentNode.next;
-    } while (parentNode);
+      node = node.next;
+    } while (node);
     return undefined;
   }
 
   has(key) {
     return this.get(key) ? true : false;
+  }
+
+  remove(key) {
+    if (!this.has(key)) return false;
+
+    // search key
+    let hash = this.hash(key);
+    let parentNode = this.#buckets[hash];
+    do {
+      // if key found, point parent node next to childs next node
+      if (parentNode.next.key === key) {
+        console.log("key found");
+        console.log(parentNode.next);
+        console.log(parentNode.next.next);
+        parentNode.next = parentNode.next.next;
+        console.log(parentNode);
+        return;
+      }
+      parentNode = parentNode.next;
+    } while (parentNode);
   }
 
   buckets() {
