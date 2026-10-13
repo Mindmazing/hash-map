@@ -88,9 +88,3 @@ class HashMap {
 }
 
 let test = new HashMap();
-test.set("Nigger", "ass");
-
-test.set("Cock Sucker Moderfoqer", "suc");
-test.remove("Nigger");
-test.remove("Cock Sucker Moderfoqer");
-console.log(test.length());
