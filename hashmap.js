@@ -20,7 +20,13 @@ class HashMap {
     // increase capacity
     if (this.length() >= this.capacity * this.loadFactor) {
       this.capacity *= 2; // double capacity
+      let entries = this.entries();
+      this.#buckets.length = 0;
       this.#buckets.length = this.capacity;
+
+      entries.forEach((entry) => {
+        this.set(entry[0], entry[1]);
+      });
     }
 
     let hash = this.hash(key);
@@ -156,3 +162,36 @@ class HashMap {
 }
 
 let test = new HashMap();
+
+test.set("moon", "silver");
+test.set("sun", "gold");
+test.set("ocean", "blue");
+test.set("forest", "green");
+test.set("fire", "red");
+test.set("sky", "cyan");
+test.set("apple", "red");
+test.set("banana", "yellow");
+test.set("grass", "green");
+test.set("night", "black");
+test.set("snow", "white");
+test.set("rose", "pink");
+test.set("chocolate", "brown");
+test.set("lemon", "yellow");
+test.set("milk", "white");
+test.set("blood", "red");
+test.set("coal", "black");
+test.set("carrot", "orange");
+test.set("eggplant", "purple");
+test.set("cloud", "gray");
+test.set("violet", "purple");
+test.set("amber", "orange");
+test.set("jade", "green");
+test.set("ruby", "red");
+test.set("sapphire", "blue");
+test.set("emerald", "green");
+test.set("coffee", "brown");
+test.set("pearl", "white");
+test.set("sand", "beige");
+test.set("steel", "gray");
+
+console.log(test.buckets());
