@@ -23,6 +23,18 @@ class HashMap {
       data: value,
       next: null,
     };
+
+    if (this.has(key)) {
+      let keyNode = this.#buckets[hash].next;
+      while (keyNode) {
+        if (keyNode.key === key) {
+          keyNode.data = node.data;
+          return;
+        }
+        keyNode = keyNode.next;
+      }
+    }
+
     if (!this.#buckets[hash]) {
       this.#buckets[hash] = { data: "HEAD", next: node };
     } else {
