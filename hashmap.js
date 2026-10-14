@@ -17,6 +17,12 @@ class HashMap {
   }
 
   set(key, value) {
+    // increase capacity
+    if (this.length() >= this.capacity * this.loadFactor) {
+      this.capacity *= 2; // double capacity
+      this.#buckets.length = this.capacity;
+    }
+
     let hash = this.hash(key);
     let node = {
       key,
@@ -96,7 +102,7 @@ class HashMap {
 
   clear() {
     this.#buckets.length = 0;
-    this.#buckets.length = this.capacity;
+    this.#buckets.length = 16;
   }
 
   keys() {
