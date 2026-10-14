@@ -82,6 +82,41 @@ class HashMap {
     }, 0);
   }
 
+  clear() {
+    this.#buckets.length = 0;
+    this.#buckets.length = this.capacity;
+  }
+
+  keys() {
+    let keys = [];
+    let node;
+    this.#buckets.forEach((element) => {
+      if (element) {
+        node = element.next;
+        while (node) {
+          keys.push(node.key);
+          node = node.next;
+        }
+      }
+    });
+    return keys;
+  }
+
+  values() {
+    let values = [];
+    let node;
+    this.#buckets.forEach((element) => {
+      if (element) {
+        node = element.next;
+        while (node) {
+          values.push(node.data);
+          node = node.next;
+        }
+      }
+    });
+    return values;
+  }
+
   buckets() {
     return this.#buckets;
   }
